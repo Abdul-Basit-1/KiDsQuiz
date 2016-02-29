@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Question">
+        <item>Which of these are school bag?</item>
+        <item>Which of these are dairy?</item>
+        <item>Which of these are football?</item>
+        <item>Which of these are hair brush?</item>
+        <item>Which of these are knife?</item>
+    </string-array>
+
+</resources>
