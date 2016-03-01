@@ -10,13 +10,21 @@ import android.widget.Button;
 
 
 public class MainActivity extends ActionBarActivity {
-    Button start,quit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
-        start = (Button) findViewById(R.id.start_game);
-        quit = (Button) findViewById(R.id.quit);
+    }
+
+    public void onclick(View view){
+        int id = view.getId();
+        switch (id){
+            case R.id.start_game:{
+                startActivity(new Intent(this,StartGame.class));
+                break;
+            }
+        }
     }
 
 
