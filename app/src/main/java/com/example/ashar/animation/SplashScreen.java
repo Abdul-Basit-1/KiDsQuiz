@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,6 +16,8 @@ import android.widget.TextView;
  * Created by ASHAR on 2/18/2016.
  */
 public class SplashScreen extends Activity {
+
+    ImageSettings imageSettings;
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         Window window = getWindow();
@@ -26,7 +29,11 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
         StartAnimations();
+
+
     }
+
+
     private void StartAnimations() {
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.zoomin);
         ImageView iv = (ImageView) findViewById(R.id.splash);
@@ -58,6 +65,7 @@ public class SplashScreen extends Activity {
                     Intent intent = new Intent(SplashScreen.this,
                             MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
                     startActivity(intent);
                     SplashScreen.this.finish();
                 } catch (InterruptedException e) {

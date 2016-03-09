@@ -35,6 +35,10 @@
             android:label="@string/title_activity_start_game">
 
         </activity>
+        <activity android:name=".SaveScore"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar">
+            </activity>
     </application>
 
 </manifest>

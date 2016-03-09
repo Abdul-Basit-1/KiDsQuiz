@@ -15,13 +15,15 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
+
     }
 
     public void onclick(View view){
         int id = view.getId();
         switch (id){
             case R.id.start_game:{
-                startActivity(new Intent(this,StartGame.class));
+                Intent intent = new Intent(this,StartGame.class);
+                startActivity(intent);
                 break;
             }
         }
