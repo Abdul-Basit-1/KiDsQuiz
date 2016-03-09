@@ -53,26 +53,31 @@ public class StartGame extends AppCompatActivity {
 
         System.arraycopy(questions, 0, questions, 0, questions.length);
         Random rgen = new Random();
-        Set<Integer> generated = new LinkedHashSet<Integer>();
-
-
-        while (generated.size() < 19){
-
-            Integer next = rgen.nextInt(19) + 1;
-            generated.add(next);
-
-            Log.d("Rand",generated+"\n");
-
+        List<Integer> generated = new ArrayList<Integer>();
+        for (int i = 0; i < 20; i++)
+        {
+            while(true)
+            {
+                Integer next = rgen.nextInt(20) + 1;
+                if (!generated.contains(next))
+                {
+                    // Done for this iteration
+                    generated.add(next);
+                    break;
+                }
+            }
         }
+
+
 
             for (int i =0;i<questions.length;i++){
 
                 //int randPos = rgen.nextInt(questions.length);
-            //generated.add(i);
-            //Collections.shuffle(generated);
-                
-            randImages[i] = generated.iterator().next();
-                Log.d("Rand",randImages[i]+"\n");
+
+                randImages[i] = generated.get(i);
+
+
+                Log.d("Rand", randImages[i]+"\n");
 
 
 
