@@ -24,7 +24,7 @@ package com.example.ashar.animation;
 
 public class StartGame extends AppCompatActivity {
     static int latestScore = 0;
-    static int count = 0;
+    int count = 0;
     CountDownTimer countDownTimer  = new CountDowntimer(10000, 1000);
     String[] questions = {"Which of these is a lock icon?", "Identify the school bag.", "Choose the diary.", "Determine the football.", "Specify the hair-brush.", "Distinguish the ice among these.", "Locate the jogger.", "Point out the kitty.", "Pinpoint the knife.", "Which one is the laughing emoticon?", "Which is the message icon?", "Which is the mobile?", "Pick the paint brush.", "Select the rectangle.", "Specify the shape of circle.", "Choose glasses.", "Point out the mammal.", "Determine the pic of camera.", "Which one of these is a real egg of hen?", "Which of these is known as a watch?"};
     TextView timer, score,TvQuestion;
@@ -43,64 +43,28 @@ public class StartGame extends AppCompatActivity {
         timer = (TextView) findViewById(R.id.timer);
         score = (TextView) findViewById(R.id.update_score);
         TvQuestion = (TextView) findViewById(R.id.Question);
+        img1 = (ImageView) findViewById(R.id.img1);
+        img2 = (ImageView) findViewById(R.id.img2);
+        img3 = (ImageView) findViewById(R.id.img3);
+
         two_D_Array = new int[20][3];
-
-
-
-
-
-
-
         System.arraycopy(questions, 0, questions, 0, questions.length);
         Random rgen = new Random();
         List<Integer> generated = new ArrayList<Integer>();
-        for (int i = 0; i < 20; i++)
-        {
-            while(true)
-            {
-                Integer next = rgen.nextInt(20) + 1;
-                if (!generated.contains(next))
-                {
-                    // Done for this iteration
+        for (int i = 0; i < 20; i++){
+            while(true){
+                Integer next = rgen.nextInt(20) ;
+                if (!generated.contains(next)){
                     generated.add(next);
                     break;
                 }
             }
         }
-
-
-
-            for (int i =0;i<questions.length;i++){
-
-                //int randPos = rgen.nextInt(questions.length);
-
-                randImages[i] = generated.get(i);
-
-
-                Log.d("Rand", randImages[i]+"\n");
-
-
-
+        for (int i =0;i<questions.length;i++){
+            randImages[i] = generated.get(i);
         }
-
-
-
         InitialzeArray();
-
-
-
-        img1 = (ImageView) findViewById(R.id.img1);
-        img2 = (ImageView) findViewById(R.id.img2);
-        img3 = (ImageView) findViewById(R.id.img3);
-
-
-
         questionsComplete();
-
-
-
-
-
     }
 
     private void InitialzeArray() {
@@ -205,9 +169,8 @@ public class StartGame extends AppCompatActivity {
 
     public void questionsComplete() {
 
-        if (count != 20){
+        if (count <= 20){
             TvQuestion.setText(questions[randImages[count]]);
-           // int [] collect = imagesSelectedForQuestion(questions[count]);
             imagesForDisplay(questions[randImages[count]]);
             count++;
             countDownTimer.start();
@@ -231,7 +194,7 @@ public class StartGame extends AppCompatActivity {
     }
 
 
-    public void isClick(ImageView imageView){
+    public void isClick(final ImageView imageView){
         imageView.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -239,7 +202,9 @@ public class StartGame extends AppCompatActivity {
             {
                 latestScore++;
                 score.setText(latestScore + "/20 ");
+                Log.d("ID","\n" + imageView.getId());
                 questionsComplete();
+
 
             }
         });
@@ -253,219 +218,15 @@ public class StartGame extends AppCompatActivity {
             public void onClick(View view)
             {
                 score.setText(latestScore + "/20 ");
+                Log.d("ID","\n" + imageView.getId());
                 questionsComplete();
 
             }
         });
     }
 
-    public static String[] Randomize(String[] arr,int[][] array)
-   {
-       String[] randomizedArray = new String[arr.length];
-       int [][] Array2d = new int[20][3];
-
-       Array2d = array;
-       System.arraycopy(arr, 0, randomizedArray, 0, arr.length);
-       Random rgen = new Random();
-
-       for (int i = 0; i < randomizedArray.length; i++)
-       {
-           int randPos = rgen.nextInt(randomizedArray.length);
-           String tmp = randomizedArray[i];
-           randomizedArray[i] = randomizedArray[randPos];
-           randomizedArray[randPos] = tmp;
-
-           int temp;
-           temp = Array2d[i][0];
-           Array2d[i][0] = Array2d[randPos][0];
-           Array2d[randPos][0] = temp;
 
 
-       }
-       return randomizedArray;
-   }
-
-    public int[] imagesSelectedForQuestion( String questionSelected )
-    {
-        if (questionSelected.contains("lock"))
-        {
-            img1.setImageResource(imageSettings.lock[0]);
-            img2.setImageResource(imageSettings.lock[1]);
-            img3.setImageResource(imageSettings.lock[2]);
-            isClick(img3);
-            isNotClick(img1);
-            isNotClick(img2);
-
-        }
-        else if (questionSelected.contains("school bag"))
-        {
-            img1.setImageResource(imageSettings.schoolBag[0]);
-            img2.setImageResource(imageSettings.schoolBag[1]);
-            img3.setImageResource(imageSettings.schoolBag[2]);
-            isClick(img2);
-            isNotClick(img1);
-            isNotClick(img3);
-        }
-        else if (questionSelected.contains("diary"))
-        {
-            img1.setImageResource(imageSettings.diary[0]);
-            img2.setImageResource(imageSettings.diary[1]);
-            img3.setImageResource(imageSettings.diary[2]);
-            isClick(img3);
-            isNotClick(img1);
-            isNotClick(img2);
-        }
-        else if (questionSelected.contains("football"))
-        {
-            img1.setImageResource(imageSettings.football[0]);
-            img2.setImageResource(imageSettings.football[1]);
-            img3.setImageResource(imageSettings.football[2]);
-            isClick(img1);
-            isNotClick(img3);
-            isNotClick(img2);
-
-        } else if (questionSelected.contains("hair-brush"))
-        {
-            img1.setImageResource(imageSettings.hairBrush[0]);
-            img2.setImageResource(imageSettings.hairBrush[1]);
-            img3.setImageResource(imageSettings.hairBrush[2]);
-            isClick(img2);
-            isNotClick(img1);
-            isNotClick(img3);
-
-
-        } else if (questionSelected.contains("ice")) {
-            img1.setImageResource(imageSettings.ice[0]);
-            img2.setImageResource(imageSettings.ice[1]);
-            img3.setImageResource(imageSettings.ice[2]);
-            isClick(img1);
-            isNotClick(img3);
-            isNotClick(img2);
-
-
-        } else if (questionSelected.contains("jogger")) {
-            img1.setImageResource(imageSettings.jogger[0]);
-            img2.setImageResource(imageSettings.jogger[1]);
-            img3.setImageResource(imageSettings.jogger[2]);
-            isClick(img2);
-            isNotClick(img1);
-            isNotClick(img3);
-
-        } else if (questionSelected.contains("kitty")) {
-            img1.setImageResource(imageSettings.kitty[0]);
-            img2.setImageResource(imageSettings.kitty[1]);
-            img3.setImageResource(imageSettings.kitty[2]);
-            isClick(img3);
-            isNotClick(img1);
-            isNotClick(img2);
-
-        } else if (questionSelected.contains("knife")) {
-            img1.setImageResource(imageSettings.knife[0]);
-            img2.setImageResource(imageSettings.knife[1]);
-            img3.setImageResource(imageSettings.knife[2]);
-            isClick(img1);
-            isNotClick(img3);
-            isNotClick(img2);
-
-        } else if (questionSelected.contains("laughing")) {
-
-            img1.setImageResource(imageSettings.laughing[0]);
-            img2.setImageResource(imageSettings.laughing[1]);
-            img3.setImageResource(imageSettings.laughing[2]);
-            isClick(img1);
-            isNotClick(img3);
-            isNotClick(img2);
-
-        } else if (questionSelected.contains("message")) {
-            img1.setImageResource(imageSettings.messageIcon[0]);
-            img2.setImageResource(imageSettings.messageIcon[1]);
-            img3.setImageResource(imageSettings.messageIcon[2]);
-            isClick(img2);
-            isNotClick(img1);
-            isNotClick(img3);
-
-        } else if (questionSelected.contains("mobile"))
-        {
-            img1.setImageResource(imageSettings.mobile[0]);
-            img2.setImageResource(imageSettings.mobile[1]);
-            img3.setImageResource(imageSettings.mobile[2]);
-            isClick(img2);
-            isNotClick(img1);
-            isNotClick(img3);
-
-        } else if (questionSelected.contains("paint")) {
-
-            img1.setImageResource(imageSettings.paintBrush[0]);
-            img2.setImageResource(imageSettings.paintBrush[1]);
-            img3.setImageResource(imageSettings.paintBrush[2]);
-            isClick(img1);
-            isNotClick(img3);
-            isNotClick(img2);
-
-        } else if (questionSelected.contains("rectangle")) {
-
-            img1.setImageResource(imageSettings.rectangle[0]);
-            img2.setImageResource(imageSettings.rectangle[1]);
-            img3.setImageResource(imageSettings.rectangle[2]);
-            isClick(img3);
-            isNotClick(img1);
-            isNotClick(img2);
-
-        } else if (questionSelected.contains("circle")) {
-
-            img1.setImageResource(imageSettings.circle[0]);
-            img2.setImageResource(imageSettings.circle[1]);
-            img3.setImageResource(imageSettings.circle[2]);
-            isClick(img2);
-            isNotClick(img1);
-            isNotClick(img3);
-
-        } else if (questionSelected.contains("glasses")) {
-            img1.setImageResource(imageSettings.glasses[0]);
-            img2.setImageResource(imageSettings.glasses[1]);
-            img3.setImageResource(imageSettings.glasses[2]);
-            isClick(img2);
-            isNotClick(img1);
-            isNotClick(img3);
-
-        } else if (questionSelected.contains("mammal")) {
-            img1.setImageResource(imageSettings.mammals[0]);
-            img2.setImageResource(imageSettings.mammals[1]);
-            img3.setImageResource(imageSettings.mammals[2]);
-            isClick(img3);
-            isNotClick(img1);
-            isNotClick(img2);
-
-        } else if (questionSelected.contains("camera")) {
-
-            img1.setImageResource(imageSettings.camera[0]);
-            img2.setImageResource(imageSettings.camera[1]);
-            img3.setImageResource(imageSettings.camera[2]);
-            isClick(img3);
-            isNotClick(img1);
-            isNotClick(img2);
-
-        } else if (questionSelected.contains("egg")) {
-
-            img1.setImageResource(imageSettings.egg[0]);
-            img2.setImageResource(imageSettings.egg[1]);
-            img3.setImageResource(imageSettings.egg[2]);
-            isClick(img1);
-            isNotClick(img3);
-            isNotClick(img2);
-
-        } else if (questionSelected.contains("watch")) {
-
-            img1.setImageResource(imageSettings.watch[0]);
-            img2.setImageResource(imageSettings.watch[1]);
-            img3.setImageResource(imageSettings.watch[2]);
-            isClick(img2);
-            isNotClick(img1);
-            isNotClick(img3);
-
-        }
-        return null;
-    }
 }
 
 
